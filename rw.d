@@ -8,20 +8,6 @@ Other predefined variables: errno, execname, pid, tid, probeprov, prebemod,
 probefunc, probename
 */
 
-
-/*syscall::read:entry,
-syscall::write:entry*/
-
-/*
-:::entry
-/pid == 8385/
-{
-    trace(pid);
-    trace(execname);
-}
-*/
-
-
 /*
 The $1 label in the predicate allows user to specify the process of interest
 as an argument to the script
@@ -31,12 +17,12 @@ syscall::read:entry,
 syscall::write:entry
 /pid == $1/
 {
-    printf("%s(%d, 0x%x, %4d)", probefunc, arg0, arg1, arg2);
+    printf("%s, %s, %d, 0x%x, %4d\n", probefunc, probename, arg0, arg1, arg2);
 }
 
 syscall::read:return,
 syscall::write:return
 /pid == $1/
 {
-    printf("\t\t = %d\n", arg1);
+    printf("%s, %s, %d\n", probefunc, probename, arg1);
 }
